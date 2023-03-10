@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <title>Bold BI</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.0-beta/jsrender.min.js"></script>
+    <script type="text/javascript" src="https://cdn.boldbi.com/embedded-sdk/v6.1.8/boldbi-embed.js"></script>    
+</head>
+<body onload="renderDashboard()"> 
+    <div id="viewer-section">
+        <div id="dashboard"></div>
+    </div>
+</body>
+<script>
+        var rootUrl = "http://localhost:53623/bi";//Dashboard Server BI URL (ex: http://localhost:5000/bi, http://demo.boldbi.com/bi)
+        var siteIdentifier = "site/site1";//For Bold BI Enterprise edition, it should be like site/site1. For Bold BI Cloud, it should be empty string.
+        var environment = "enterprise";//Your Bold BI application environment. (If Cloud, you should use `cloud`, if Enterprise, you should use `enterprise`)
+        var DashboardId = ""; //Provide the dashboard id of the dashboard you want to embed here.
+
+function renderDashboard() {
+    var dashboard = BoldBI.create({
+        serverUrl: rootUrl+"/"+siteIdentifier,
+        dashboardId:DashboardId,
+        embedContainerId: "dashboard",
+        embedType: BoldBI.EmbedType.Component,
+        environment:   environment == "enterprise" ? BoldBI.Environment.Enterprise : BoldBI.Environment.Cloud,
+        width: window.innerWidth + "px",
+        height: window.innerHeight + "px",
+        mode: BoldBI.Mode.View,
+        expirationTime: 100000,
+        authorizationServer: {
+            url: "/GetDetails" //The URL from which particular dashboard details are obtained from the server.
+        }
+         
+    });
+
+    dashboard.loadDashboard();
+};
+</script>
+</html>
