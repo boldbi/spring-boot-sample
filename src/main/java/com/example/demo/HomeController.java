@@ -1,8 +1,13 @@
 package com.example.demo; 
+import java.io.IOException;
 import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,10 +15,25 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
+import com.google.gson.Gson;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/")
 public class HomeController {
+
+    @GetMapping("GetConfig")
+    public String GetConfig() throws IOException{
+            // string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            // string jsonString = System.IO.File.ReadAllText(Path.Combine(basePath, "embedConfig.json"));
+            // GlobalAppSettings.EmbedDetails = JsonConvert.DeserializeObject<EmbedDetails>(jsonString);
+
+            ClassPathResource resource = new ClassPathResource("embedConfig.json");
+        byte[] jsonData = FileCopyUtils.copyToByteArray(resource.getInputStream());
+        String jsonString = new String(jsonData);
+        return jsonString;
+       // return new Gson().fromJson(jsonString, EmbedDetails.class);
+    }
 
     @PostMapping("GetDetails")
     public String getDetails(@RequestBody EmbedClass embedQuerString) throws Exception{

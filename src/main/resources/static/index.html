@@ -15,10 +15,25 @@
     </div>
 </body>
 <script>
-        var rootUrl = "http://localhost:53623/bi";//Dashboard Server BI URL (ex: http://localhost:5000/bi, http://demo.boldbi.com/bi)
+        var rootUrl = "http://localhost:64173/bi";//Dashboard Server BI URL (ex: http://localhost:5000/bi, http://demo.boldbi.com/bi)
         var siteIdentifier = "site/site1";//For Bold BI Enterprise edition, it should be like site/site1. For Bold BI Cloud, it should be empty string.
         var environment = "enterprise";//Your Bold BI application environment. (If Cloud, you should use `cloud`, if Enterprise, you should use `enterprise`)
-        var DashboardId = ""; //Provide the dashboard id of the dashboard you want to embed here.
+        var DashboardId = "b09503a4-eac2-44de-9837-92ec1eae8a08"; //Provide the dashboard id of the dashboard you want to embed here.
+
+
+        var data;
+        async function fetchDataAndHandleErrors() {
+            try {
+                const response = await fetch('/GetConfig');
+                const embedConfig = await response.json();
+                data = embedConfig;
+            } catch (error) {
+                window.location.href = 'api/EmbedData/EmbedConfigErrorLog';
+            }
+        }
+
+        fetchDataAndHandleErrors();
+
 
 function renderDashboard() {
     var dashboard = BoldBI.create({
