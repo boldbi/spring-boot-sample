@@ -15,29 +15,33 @@
     </div>
 </body>
 <script>
-        var rootUrl = "http://localhost:53623/bi";//Dashboard Server BI URL (ex: http://localhost:5000/bi, http://demo.boldbi.com/bi)
-        var siteIdentifier = "site/site1";//For Bold BI Enterprise edition, it should be like site/site1. For Bold BI Cloud, it should be empty string.
-        var environment = "enterprise";//Your Bold BI application environment. (If Cloud, you should use `cloud`, if Enterprise, you should use `enterprise`)
-        var DashboardId = ""; //Provide the dashboard id of the dashboard you want to embed here.
+    function renderDashboard() {
+        fetch('/embedConfig')
+            .then(response => response.json())
+            .then(data => {
+                // ... (retrieve other values from the JSON file as needed)
 
-function renderDashboard() {
-    var dashboard = BoldBI.create({
-        serverUrl: rootUrl+"/"+siteIdentifier,
-        dashboardId:DashboardId,
-        embedContainerId: "dashboard",
-        embedType: BoldBI.EmbedType.Component,
-        environment:   environment == "enterprise" ? BoldBI.Environment.Enterprise : BoldBI.Environment.Cloud,
-        width: window.innerWidth + "px",
-        height: window.innerHeight + "px",
-        mode: BoldBI.Mode.View,
-        expirationTime: 100000,
-        authorizationServer: {
-            url: "/GetDetails" //The URL from which particular dashboard details are obtained from the server.
-        }
-         
-    });
+                var dashboard = BoldBI.create({
+                    serverUrl: data.ServerUrl + "/" + data.SiteIdentifier,
+                    dashboardId: data.DashboardId,
+                    embedContainerId: "dashboard",
+                    embedType: BoldBI.EmbedType.Component,
+                    environment:data.Environment,
+                    width: window.innerWidth + "px",
+                    height: window.innerHeight + "px",
+                    mode: BoldBI.Mode.View,
+                    expirationTime: 100000,
+                    authorizationServer: {
+                        url: "/GetDetails" 
+                    }
+                });
 
-    dashboard.loadDashboard();
-};
+                dashboard.loadDashboard();
+            })
+            .catch(error => {
+                console.error('Error fetching embedConfig:', error);
+                // Handle the error as needed
+            });
+    };
 </script>
 </html>
