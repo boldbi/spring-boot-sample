@@ -1,92 +1,91 @@
-package com.example.demo; 
-import com.fasterxml.jackson.annotation.JsonProperty;
+package com.example.demo;
+
+import com.google.gson.annotations.SerializedName;
 
 public class EmbedProperties {
-    @JsonProperty("DashboardId")
-    private String dashboardId;
+    @SerializedName("DashboardId")
+    private String DashboardId;
 
-    @JsonProperty("ServerUrl")
-    private String serverUrl;
+    @SerializedName("ServerUrl")
+    private String ServerUrl;
 
-    @JsonProperty("UserEmail")
-    private static String userEmail;
+    @SerializedName("UserEmail") String UserEmail;
 
-    @JsonProperty("EmbedSecret")
-    private static String embedSecret;
+    @SerializedName("EmbedSecret") String EmbedSecret;
 
-    @JsonProperty("EmbedType")
-    private String embedType;
+    @SerializedName("EmbedType")
+    private String EmbedType;
 
-    @JsonProperty("Environment")
-    private String environment;
+    @SerializedName("Environment")
+    private String Environment;
 
-    @JsonProperty("ExpirationTime")
-    private String expirationTime;
+    @SerializedName("ExpirationTime")
+    private String ExpirationTime;
 
-    @JsonProperty("SiteIdentifier")
-    private String siteIdentifier;
+    @SerializedName("SiteIdentifier")
+    private String SiteIdentifier;
 
     public String getDashboardId() {
-        return dashboardId;
+        return DashboardId;
     }
 
-    public void setDashboardId(String dashboardId) {
-        this.dashboardId = dashboardId;
+    public void setDashboardId(String DashboardId) {
+        this.DashboardId = DashboardId;
     }
 
     public String getServerUrl() {
-        return serverUrl;
+        return ServerUrl;
     }
 
-    public void setServerUrl(String serverUrl) {
-        this.serverUrl = serverUrl;
+    public void setServerUrl(String ServerUrl) {
+        this.ServerUrl = ServerUrl;
     }
 
-    public static String getUserEmail() {
-        return userEmail;
+    public String getUserEmail() {
+        return UserEmail;
     }
 
-    public void setUserEmail(String userEmail) {
-        EmbedProperties.userEmail = userEmail;
+    public void setUserEmail(String UserEmail) {
+        this.UserEmail = UserEmail;
     }
 
-    public static String getEmbedSecret() {
-        return embedSecret;
+    public String getEmbedSecret() {
+        return EmbedSecret;
     }
 
-    public void setEmbedSecret(String embedSecret) {
-        EmbedProperties.embedSecret = embedSecret;
+    public void setEmbedSecret(String EmbedSecret) {
+        this.EmbedSecret = EmbedSecret;
     }
 
     public String getEmbedType() {
-        return embedType;
+        return EmbedType;
     }
 
-    public void setEmbedType(String embedType) {
-        this.embedType = embedType;
+    public void setEmbedType(String EmbedType) {
+        this.EmbedType = EmbedType;
     }
 
     public String getEnvironment() {
-        return environment;
+        return Environment;
     }
 
-    public void setEnvironment(String environment) {
-        this.environment = environment;
+    public void setEnvironment(String Environment) {
+        this.Environment = Environment;
     }
 
     public String getExpirationTime() {
-        return expirationTime;
+        return ExpirationTime;
     }
 
-    public void setExpirationTime(String expirationTime) {
-        this.expirationTime = expirationTime;
+    public void setExpirationTime(String ExpirationTime) {
+        this.ExpirationTime = ExpirationTime;
     }
 
     public String getSiteIdentifier() {
-        return siteIdentifier;
+        return SiteIdentifier;
     }
 
-    public void setSiteIdentifier(String siteIdentifier) {
-        this.siteIdentifier = siteIdentifier;
+    public void setSiteIdentifier(String SiteIdentifier) {
+        this.SiteIdentifier = SiteIdentifier;
     }
 }
