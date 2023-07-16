@@ -4,26 +4,28 @@ import com.google.gson.annotations.SerializedName;
 
 public class EmbedProperties {
     @SerializedName("DashboardId")
-    private String DashboardId;
+    public String DashboardId;
 
     @SerializedName("ServerUrl")
-    private String ServerUrl;
+    public String ServerUrl;
 
-    @SerializedName("UserEmail") String UserEmail;
+    @SerializedName("UserEmail") 
+    public String UserEmail;
 
-    @SerializedName("EmbedSecret") String EmbedSecret;
+    @SerializedName("EmbedSecret") 
+    public String EmbedSecret;
 
     @SerializedName("EmbedType")
-    private String EmbedType;
+    public String EmbedType;
 
     @SerializedName("Environment")
-    private String Environment;
+    public String Environment;
 
     @SerializedName("ExpirationTime")
-    private String ExpirationTime;
+    public String ExpirationTime;
 
     @SerializedName("SiteIdentifier")
-    private String SiteIdentifier;
+    public String SiteIdentifier;
 
     public String getDashboardId() {
         return DashboardId;

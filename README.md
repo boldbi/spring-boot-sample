@@ -2,71 +2,47 @@
 
 This Bold BI Spring Boot sample repository contains the Dashboard embedding sample. This sample demonstrates how to embed the dashboard which is available in your Bold BI server.
 
-This section guides you in using the Bold BI dashboard in your Spring Boot sample application.
+## Dashboard view
 
- * [Requirements to run the demo](#requirements-to-run-the-demo)
- * [Using the Spring Boot sample](#using-the-spring-boot-sample)
- * [Online Demos](#online-demos)
- * [Documentation](#documentation)
+   ![Dashboard view](https://github.com/boldbi/vue-with-go-sample/assets/129486688/381aa89c-6870-4489-a744-c3617abc7646)
  
- ## Requirements to run the demo
-
-The sample require the following to run:
+ ## Prerequisites
 
  * [Java Development Kit (JDK)](https://www.microsoft.com/openjdk).
  * [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack).
  * [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=pivotal.vscode-boot-dev-pack).
  * [Visual Studio Code](https://code.visualstudio.com/download).
 
- ## Using the Spring Boot sample
- 
- * Open the Spring Boot embed sample in the Visual studio code or any respective IDE. 
+  #### Supported browsers
+  
+  * Google Chrome, Microsoft Edge, Mozilla Firefox.
 
- * Open the index.html file in the following location, /src/main/resources/static/index.html.
+  ## Configuration
 
- * Please change the following properties in the `index.html` file per your Bold BI Server.
+ * Please ensure that you have enabled embed authentication on the `embed settings` page. If it is not currently enabled, please refer to the following image or detailed [instructions](https://help.boldbi.com/site-administration/embed-settings/#get-embed-secret-code) to enable it.
 
-    <meta charset="utf-8"/>
-    <table>
-    <tbody>
-        <tr>
-            <td align="left">RootUrl</td>
-            <td align="left">Dashboard Server URL (Eg: http://localhost:5000/bi, http://demo.boldbi.com/bi).</td>
-        </tr>
-        <tr>
-            <td align="left">SiteIdentifier</td>
-            <td align="left">For the Bold BI Enterprise edition, it should be like `site/site1.` For Bold BI Cloud, it should be an empty string.</td>
-        </tr>
-        <tr>
-            <td align="left">Environment</td>
-            <td align="left">Your Bold BI application environment. (If Cloud, you should use `cloud,` if Enterprise, you should use `enterprise`).</td>
-        </tr>
-        <tr>
-            <td align="left">dashboardId</td>
-            <td align="left">Id of the dashboard you want to embed.</td>
-        </tr>
+    ![Embed Settings](https://github.com/boldbi/aspnet-core-sample/assets/91586758/b3a81978-9eb4-42b2-92bb-d1e2735ab007)
 
+ * To download the `embedConfig.json` file, please follow this [link](https://help.boldbi.com/site-administration/embed-settings/#get-embed-configuration-file) for reference. Additionally, you can refer to the following image for visual guidance.
 
-* Now open the `EmbedProperties.java` in the following location,/src/main/java/com/example/demo and provide the following mandatory properties.
+    ![Embed Settings Download](https://github.com/boldbi/aspnet-core-sample/assets/91586758/d27d4cfc-6a3e-4c34-975e-f5f22dea6172)
+    ![EmbedConfig Properties](https://github.com/boldbi/aspnet-core-sample/assets/91586758/d6ce925a-0d4c-45d2-817e-24d6d59e0d63)
 
-		<meta charset="utf-8"/>
-		<table>
-		<tbody>
-        <tr>
-            <td align="left">UserEmail</td>
-            <td align="left">UserEmail of the Admin in your Bold BI, which will be used to get the dashboard list.</td>
-        </tr>
-        <tr>
-            <td align="left">EmbedSecret</td>
-            <td align="left">Get your EmbedSecret key from the Embed tab by enabling the `Enable embed authentication` on the Administration page https://help.boldbi.com/embedded-bi/site-administration/embed-settings/.</td>
-        </tr>
-		</tbody>
-		</table>
+ * Copy the downloaded `embedConfig.json` file and paste it into the designated [location](https://github.com/boldbi/spring-boot-sample/tree/master/src/main/resources) within the application. Please ensure that you have placed it in the application as shown in the following image.
 
-* Now run the Spring Boot sample.
+   ![EmbedConfig image]()
 
-<!-- Commanded below line since help documentation is unavailable now -->
-<!-- Please refer to the [help documentation]() to know how to run the sample. -->
+ ## Developer IDE
+
+  * [Visual studio code](https://code.visualstudio.com/download)
+
+ ### Run a Sample Using Visual Studio Code
+
+  * Open the Spring Boot embed sample in the **Visual studio code**.
+
+  * Now, the run sample using **Spring Boot Dashboard** in the Activity Bar on the side.
+  
+Please refer to the [help documentation]() to know how to run the sample.
 
 ## Online Demos
 
