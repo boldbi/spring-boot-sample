@@ -42,6 +42,9 @@ This Bold BI Spring Boot sample repository contains the Dashboard embedding samp
 
   * Now, the run sample using **Spring Boot Dashboard** in the Activity Bar on the side.
 
+    ![spring-boot-dasghboard-button2](https://github.com/boldbi/spring-boot-sample/assets/129486688/50dca4c7-9ad0-45ea-8c8b-6165f297342a)
+
+
   * You can access your application by opening a web browser and navigating to the this URL (http://localhost:8080).
     
     ![Dashboard view](https://github.com/boldbi/vue-with-go-sample/assets/129486688/381aa89c-6870-4489-a744-c3617abc7646)
