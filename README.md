@@ -41,8 +41,15 @@ This Bold BI Spring Boot sample repository contains the Dashboard embedding samp
   * Open the Spring Boot embed sample in the **Visual studio code**.
 
   * Now, the run sample using **Spring Boot Dashboard** in the Activity Bar on the side.
-  
-Please refer to the [help documentation]() to know how to run the sample.
+    
+    ![Dashboard view](https://github.com/boldbi/vue-with-go-sample/assets/129486688/381aa89c-6870-4489-a744-c3617abc7646)
+    
+  Please refer to the [help documentation]() to know how to run the sample.
+
+## Important notes
+
+It is recommended not to store passwords and sensitive information in configuration files for security reasons in a real-world application. Instead, it would be best if you considered using a secure application, such as Key Vault, to safeguard your credentials.
+
 
 ## Online Demos
 
