@@ -13,7 +13,7 @@
         margin-top: 300px
     }
 </style>
-<body onload="renderDashboard()" style="margin: 0%;"> 
+<body onload="renderEmbedConfig()" style="margin: 0%;"> 
     <div id="viewer-section">
         <div id="dashboard"></div>
     </div>
@@ -21,7 +21,7 @@
 
 </body>
 <script>
-    function renderDashboard() {
+    function renderEmbedConfig() {
         fetch('/getEmbedConfig')
           .then(response => {
           if (response.ok) {
@@ -29,7 +29,7 @@
           }
         })
          .then(data => {
-                createDashboard(data)
+                renderDashboard(data)
             })
         .catch(error => {
             const content='<div>To compile and run the project, an embed config file needs to be required. Please use the <a href="https://help.boldbi.com/embedded-bi/site-administration/embed-settings/" target="_blank">link</a> to obtain the JSON file from the Bold BI server.</div>';
@@ -38,7 +38,7 @@
             errorMessageElement.style.display = 'block';
         });           
     }
-    function createDashboard(data)
+    function renderDashboard(data)
     {
         var dashboard = BoldBI.create({
             serverUrl: data.serverUrl + "/" + data.siteIdentifier,
