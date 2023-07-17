@@ -30,8 +30,8 @@ This Bold BI Spring Boot sample repository contains the Dashboard embedding samp
 
  * Copy the downloaded `embedConfig.json` file and paste it into the designated [location](https://github.com/boldbi/spring-boot-sample/tree/master/src/main/resources) within the application. Please ensure that you have placed it in the application as shown in the following image.
 
-   ![EmbedConfig image]()
-
+   ![EmbedConfig image](https://github.com/boldbi/spring-boot-sample/assets/129486688/944e3064-ffd8-4155-a30a-30994819823c)
+   
  ## Developer IDE
 
   * [Visual studio code](https://code.visualstudio.com/download)
