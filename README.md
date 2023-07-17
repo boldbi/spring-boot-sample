@@ -49,7 +49,7 @@ This Bold BI Spring Boot sample repository contains the Dashboard embedding samp
     
     ![Dashboard view](https://github.com/boldbi/vue-with-go-sample/assets/129486688/381aa89c-6870-4489-a744-c3617abc7646)
     
-  Please refer to the [help documentation]() to know how to run the sample.
+  Please refer to the [help documentation](https://help.boldbi.com/embedding-options/embedding-sdk/samples/spring-boot/) to know how to run the sample.
 
 ## Important notes
 
