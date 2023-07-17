@@ -9,9 +9,9 @@ This Bold BI Spring Boot sample repository contains the Dashboard embedding samp
  ## Prerequisites
 
  * [Java Development Kit (JDK)](https://www.microsoft.com/openjdk).
- * [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack).
- * [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=pivotal.vscode-boot-dev-pack).
  * [Visual Studio Code](https://code.visualstudio.com/download).
+      * [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack).
+      * [Spring Boot Extension Pack](https://marketplace.visualstudio.com/items?itemName=pivotal.vscode-boot-dev-pack).
 
   #### Supported browsers
   
