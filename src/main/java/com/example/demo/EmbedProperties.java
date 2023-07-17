@@ -4,90 +4,90 @@ import com.google.gson.annotations.SerializedName;
 
 public class EmbedProperties {
     @SerializedName("DashboardId")
-    public String DashboardId;
+    public String dashboardId;
 
     @SerializedName("ServerUrl")
-    public String ServerUrl;
+    public String serverUrl;
 
     @SerializedName("UserEmail") 
-    public String UserEmail;
+    public String userEmail;
 
     @SerializedName("EmbedSecret") 
-    public String EmbedSecret;
+    public String embedSecret;
 
     @SerializedName("EmbedType")
-    public String EmbedType;
+    public String embedType;
 
     @SerializedName("Environment")
-    public String Environment;
+    public String environment;
 
     @SerializedName("ExpirationTime")
-    public String ExpirationTime;
+    public String expirationTime;
 
     @SerializedName("SiteIdentifier")
-    public String SiteIdentifier;
+    public String siteIdentifier;
 
     public String getDashboardId() {
-        return DashboardId;
+        return dashboardId;
     }
 
     public void setDashboardId(String DashboardId) {
-        this.DashboardId = DashboardId;
+        this.dashboardId = DashboardId;
     }
 
     public String getServerUrl() {
-        return ServerUrl;
+        return serverUrl;
     }
 
     public void setServerUrl(String ServerUrl) {
-        this.ServerUrl = ServerUrl;
+        this.serverUrl = ServerUrl;
     }
 
     public String getUserEmail() {
-        return UserEmail;
+        return userEmail;
     }
 
     public void setUserEmail(String UserEmail) {
-        this.UserEmail = UserEmail;
+        this.userEmail = UserEmail;
     }
 
     public String getEmbedSecret() {
-        return EmbedSecret;
+        return embedSecret;
     }
 
     public void setEmbedSecret(String EmbedSecret) {
-        this.EmbedSecret = EmbedSecret;
+        this.embedSecret = EmbedSecret;
     }
 
     public String getEmbedType() {
-        return EmbedType;
+        return embedType;
     }
 
     public void setEmbedType(String EmbedType) {
-        this.EmbedType = EmbedType;
+        this.embedType = EmbedType;
     }
 
     public String getEnvironment() {
-        return Environment;
+        return environment;
     }
 
     public void setEnvironment(String Environment) {
-        this.Environment = Environment;
+        this.environment = Environment;
     }
 
     public String getExpirationTime() {
-        return ExpirationTime;
+        return expirationTime;
     }
 
     public void setExpirationTime(String ExpirationTime) {
-        this.ExpirationTime = ExpirationTime;
+        this.expirationTime = ExpirationTime;
     }
 
     public String getSiteIdentifier() {
-        return SiteIdentifier;
+        return siteIdentifier;
     }
 
     public void setSiteIdentifier(String SiteIdentifier) {
-        this.SiteIdentifier = SiteIdentifier;
+        this.siteIdentifier = SiteIdentifier;
     }
 }

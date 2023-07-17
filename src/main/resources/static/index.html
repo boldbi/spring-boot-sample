@@ -2,7 +2,6 @@
 <html>
 <head> 
     <title>Bold BI</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript" src="https://cdn.boldbi.com/embedded-sdk/v6.8.9/boldbi-embed.js"></script>    
 </head>
 <style>
@@ -14,7 +13,7 @@
         margin-top: 300px
     }
 </style>
-<body onload="renderDashboard()"> 
+<body onload="renderDashboard()" style="margin: 0%;"> 
     <div id="viewer-section">
         <div id="dashboard"></div>
     </div>
@@ -27,19 +26,17 @@
           .then(response => {
           if (response.ok) {
             return response.json();
-          } else {
-            throw new Error('Error fetching data');
           }
         })
          .then(data => {
                 createDashboard(data)
             })
-            .catch(error => {
-                const content='<div>To compile and run the project, an embed config file needs to be required. Please use the <a href="https://help.boldbi.com/embedded-bi/site-administration/embed-settings/" target="_blank">link</a> to obtain the JSON file from the Bold BI server.</div>';
-                const errorMessageElement = document.getElementById('error-message');
-                errorMessageElement.innerHTML = content;
-                errorMessageElement.style.display = 'block';
-            });           
+        .catch(error => {
+            const content='<div>To compile and run the project, an embed config file needs to be required. Please use the <a href="https://help.boldbi.com/embedded-bi/site-administration/embed-settings/" target="_blank">link</a> to obtain the JSON file from the Bold BI server.</div>';
+            const errorMessageElement = document.getElementById('error-message');
+            errorMessageElement.innerHTML = content;
+            errorMessageElement.style.display = 'block';
+        });           
     }
     function createDashboard(data)
     {
@@ -54,7 +51,7 @@
             mode: BoldBI.Mode.View,
             expirationTime: 100000,
             authorizationServer: {
-                url: "/AuthorizationServer" 
+                url: "/authorizationServer" 
             }
         });
 

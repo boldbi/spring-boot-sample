@@ -5,7 +5,6 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.MediaType;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +23,7 @@ import com.google.gson.Gson;
 public class HomeController {
 
     EmbedProperties embedProperties;
-    @GetMapping(value = "getEmbedConfig", produces = MediaType.APPLICATION_JSON_VALUE)
-    //@ResponseBody
+    @GetMapping("getEmbedConfig")
     public EmbedProperties getEmbedConfig() throws IOException {
         ClassPathResource resource = new ClassPathResource("embedConfig.json");
         byte[] jsonBytes = StreamUtils.copyToByteArray(resource.getInputStream());
@@ -36,7 +34,7 @@ public class HomeController {
         return embedProperties;
     }
 
-    @PostMapping("AuthorizationServer")
+    @PostMapping("authorizationServer")
     public String authorizationServer(@RequestBody EmbedClass embedQueryString) throws Exception {
         String embedQuery = embedQueryString.getEmbedQuerString();
         embedQuery += "&embed_user_email=" + embedProperties.getUserEmail();
