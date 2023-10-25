@@ -2,7 +2,7 @@
 <html>
 <head> 
     <title>Bold BI</title> 
-    <script type="text/javascript" src="https://cdn.boldbi.com/embedded-sdk/v6.8.9/boldbi-embed.js"></script>    
+    <script type="text/javascript" src="https://cdn.boldbi.com/embedded-sdk/v6.15.11/boldbi-embed.js"></script>    
 </head>
 <style>
     #error-message{
@@ -32,7 +32,7 @@
                 renderDashboard(data)
             })
         .catch(error => {
-            const content='<div>To compile and run the project, an embed config file needs to be required. Please use the <a href="https://help.boldbi.com/embedded-bi/site-administration/embed-settings/" target="_blank">link</a> to obtain the JSON file from the Bold BI server.</div>';
+            const content='<div>To compile and run the project, an embed config file needs to be required. Please use the <a href="https://help.boldbi.com/site-administration/embed-settings/" target="_blank">link</a> to obtain the JSON file from the Bold BI server.</div>';
             const errorMessageElement = document.getElementById('error-message');
             errorMessageElement.innerHTML = content;
             errorMessageElement.style.display = 'block';
