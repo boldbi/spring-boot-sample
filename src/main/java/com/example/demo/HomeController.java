@@ -2,6 +2,9 @@ package com.example.demo;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import org.springframework.core.io.ClassPathResource;
@@ -24,14 +27,22 @@ public class HomeController {
 
     EmbedProperties embedProperties;
     @GetMapping("getEmbedConfig")
-    public EmbedProperties getEmbedConfig() throws IOException {
+    public Map<String, String> getEmbedConfig() throws IOException {
         ClassPathResource resource = new ClassPathResource("embedConfig.json");
         byte[] jsonBytes = StreamUtils.copyToByteArray(resource.getInputStream());
         String jsonContent = new String(jsonBytes, StandardCharsets.UTF_8);
 
         Gson gson = new Gson();
-        embedProperties = gson.fromJson(jsonContent, EmbedProperties.class);
-        return embedProperties;
+        this.embedProperties = gson.fromJson(jsonContent, EmbedProperties.class);
+
+        // Create a Map with the desired properties
+        Map<String, String> result = new HashMap<>();
+        result.put("dashboardId", embedProperties.getDashboardId());
+        result.put("serverUrl", embedProperties.getServerUrl());
+        result.put("embedType", embedProperties.getEmbedType());
+        result.put("environment", embedProperties.getEnvironment());
+        result.put("siteIdentifier", embedProperties.getSiteIdentifier());
+        return result;
     }
 
     @PostMapping("authorizationServer")
