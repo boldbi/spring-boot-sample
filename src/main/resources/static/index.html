@@ -2,7 +2,7 @@
 <html>
 <head> 
     <title>Bold BI</title> 
-    <script type="text/javascript" src="https://cdn.boldbi.com/embedded-sdk/v6.15.11/boldbi-embed.js"></script>    
+    <script type="text/javascript" src="https://cdn.boldbi.com/embedded-sdk/latest/boldbi-embed.js"></script>    
 </head>
 <style>
     #error-message{
@@ -44,12 +44,13 @@
             serverUrl: data.serverUrl + "/" + data.siteIdentifier,
             dashboardId: data.dashboardId,
             embedContainerId: "dashboard",
-            embedType: BoldBI.EmbedType.Component,
-            environment:data.environment,
-            width: window.innerWidth + "px",
+            // embedType: BoldBI.EmbedType.Component,
+            // environment:data.environment,
+            //width: window.innerWidth + "px",
+            width: "100%",
             height: window.innerHeight + "px",
-            mode: BoldBI.Mode.View,
-            expirationTime: 100000,
+            //mode: BoldBI.Mode.View,
+            //expirationTime: 100000,
             authorizationServer: {
                 url: "/authorizationServer" 
             }
