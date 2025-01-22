@@ -1,5 +1,10 @@
-package com.example.demo; 
+package com.example.demo;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
@@ -15,9 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.DefaultUriBuilderFactory;
-
 import com.google.gson.Gson;
 
 @RestController
@@ -50,13 +52,20 @@ public class HomeController {
         String embedQuery = embedQueryString.getEmbedQuerString();
         embedQuery += "&embed_user_email=" + embedProperties.getUserEmail();
         String embedDetailsUrl = "/embed/authorize?" + embedQuery + "&embed_signature=" + GetSignatureUrl(embedQuery);
-        RestTemplate restTemplate = new RestTemplate();
-        DefaultUriBuilderFactory defaultUriBuilderFactory = new DefaultUriBuilderFactory();
-        defaultUriBuilderFactory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
-        restTemplate.setUriTemplateHandler(defaultUriBuilderFactory);
         String baseAddressString = embedQueryString.getDashboardServerApiUrl();
-        String result = restTemplate.getForObject(baseAddressString + embedDetailsUrl, String.class);
-        return result;
+        String fullUrl = baseAddressString + embedDetailsUrl;
+        URL url = new URL(fullUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "application/json");
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        return response.toString();
     }
 
     public String GetSignatureUrl(String queryString) throws Exception {
@@ -68,6 +77,4 @@ public class HomeController {
             }
         return null;
     }
-
 }
-
