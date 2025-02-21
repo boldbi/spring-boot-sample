@@ -4,7 +4,7 @@ This Bold BI Spring Boot sample repository contains the Dashboard embedding samp
 
 ## Dashboard view
 
-   ![Dashboard view](https://github.com/boldbi/vue-with-go-sample/assets/129486688/381aa89c-6870-4489-a744-c3617abc7646)
+   ![Dashboard view](/images/dashboard.png)
 
 ## Prerequisites
 
@@ -15,38 +15,38 @@ This Bold BI Spring Boot sample repository contains the Dashboard embedding samp
 
 ### Supported browsers
   
-* Google Chrome, Microsoft Edge, Mozilla Firefox.
+* Google Chrome, Microsoft Edge, and Mozilla Firefox.
 
 ## Configuration
 
-* Please ensure that you have enabled embed authentication on the `embed settings` page. If it is not currently enabled, please refer to the following image or detailed [instructions](https://help.boldbi.com/site-administration/embed-settings/#get-embed-secret-code?utm_source=github&utm_medium=backlinks) to enable it.
+* Please ensure that you have enabled embed authentication on the `Embed Settings` page. If it is not currently enabled, please refer to the following image or detailed [instructions](https://help.boldbi.com/site-administration/embed-settings/#get-embed-secret-code?utm_source=github&utm_medium=backlinks) to enable it.
 
-    ![Embed Settings](https://github.com/boldbi/aspnet-core-sample/assets/91586758/b3a81978-9eb4-42b2-92bb-d1e2735ab007)
+    ![Embed Settings](/images/enable-embedsecretkey.png)
 
 * To download the `embedConfig.json` file, please follow this [link](https://help.boldbi.com/site-administration/embed-settings/#get-embed-configuration-file?utm_source=github&utm_medium=backlinks) for reference. Additionally, you can refer to the following image for visual guidance.
 
-    ![Embed Settings Download](https://github.com/boldbi/aspnet-core-sample/assets/91586758/d27d4cfc-6a3e-4c34-975e-f5f22dea6172)
-    ![EmbedConfig Properties](https://github.com/boldbi/aspnet-core-sample/assets/91586758/d6ce925a-0d4c-45d2-817e-24d6d59e0d63)
+    ![Embed Settings Download](/images/download-embedsecretkey.png)
+    ![EmbedConfig Properties](/images/embedconfig-file.png)
 
 * Copy the downloaded `embedConfig.json` file and paste it into the designated [location](https://github.com/boldbi/spring-boot-sample/tree/master/src/main/resources) within the application. Please ensure that you have placed it in the application as shown in the following image.
 
-   ![EmbedConfig image](https://github.com/boldbi/spring-boot-sample/assets/129486688/944e3064-ffd8-4155-a30a-30994819823c)
+   ![EmbedConfig image](/images/embedconfig-location.png)
 
 ## Developer IDE
 
-* [Visual studio code](https://code.visualstudio.com/download)
+* [Visual Studio Code](https://code.visualstudio.com/download)
 
 ### Run a Sample Using Visual Studio Code
 
-* Open the Spring Boot embed sample in the **Visual studio code**.
+* Open the Spring Boot embed sample in the **Visual Studio Code**.
 
 * Now, the run sample using **Spring Boot Dashboard** in the Activity Bar on the side.
 
-    ![spring-boot-dasghboard-button2](https://github.com/boldbi/spring-boot-sample/assets/129486688/50dca4c7-9ad0-45ea-8c8b-6165f297342a)
+    ![spring-boot-dashboard-button](/images/sample-run.png)
 
 * You can access your application by opening a web browser and navigating to the this URL (<http://localhost:8080>).
 
-    ![Dashboard view](https://github.com/boldbi/vue-with-go-sample/assets/129486688/381aa89c-6870-4489-a744-c3617abc7646)
+    ![Dashboard view](/images/dashboard.png)
 
   Please refer to the [help documentation](https://help.boldbi.com/embedding-options/embedding-sdk/samples/spring-boot/?utm_source=github&utm_medium=backlinks) to know how to run the sample.
 
