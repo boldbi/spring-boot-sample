@@ -13,7 +13,7 @@
         margin-top: 300px
     }
 </style>
-<body onload="renderEmbedConfig()" style="margin: 0%;"> 
+<body onload="initEmbed()" style="margin: 0%;"> 
     <div id="viewer-section">
         <div id="dashboard"></div>
     </div>
@@ -21,37 +21,65 @@
 
 </body>
 <script>
-    function renderEmbedConfig() {
-        fetch('/getEmbedConfig')
-          .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-        })
-         .then(data => {
-                renderDashboard(data)
-            })
-        .catch(error => {
-            const content='<div>To compile and run the project, an embed config file needs to be required. Please use the <a href="https://help.boldbi.com/site-administration/embed-settings/" target="_blank">link</a> to obtain the JSON file from the Bold BI server.</div>';
-            const errorMessageElement = document.getElementById('error-message');
-            errorMessageElement.innerHTML = content;
-            errorMessageElement.style.display = 'block';
-        });           
-    }
-    function renderDashboard(data)
-    {
-        var dashboard = BoldBI.create({
-            serverUrl: data.serverUrl + "/" + data.siteIdentifier,
-            dashboardId: data.dashboardId,
-            embedContainerId: "dashboard",
-            width: "100%",
-            height: window.innerHeight + "px",
-            authorizationServer: {
-                url: "/authorizationServer" 
-            }
-        });
+const embedConfigUrl = '/getEmbedConfig';
+const tokenGenerationUrl = '/TokenGeneration';
+const dashboardContainerId = 'dashboard';
 
-        dashboard.loadDashboard();
+async function initEmbed() {
+    try {
+        const resp = await fetch(embedConfigUrl);
+        if (!resp.ok) throw new Error('Failed to load embed config');
+        const data = await resp.json();
+        await renderDashboard(data);
+    } catch (err) {
+        showError('<div>To compile and run the project, an embed config file is required. Please use the <a href="https://help.boldbi.com/site-administration/embed-settings/" target="_blank">link</a> to obtain the JSON file from the Bold BI server.</div>\n<pre>' + escapeHtml(err.message) + '</pre>');
     }
+}
+
+async function getEmbedToken() {
+    const resp = await fetch(tokenGenerationUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+    });
+    if (!resp.ok) {
+        const txt = await resp.text();
+        throw new Error('Token fetch failed: ' + txt);
+    }
+    return resp.text();
+}
+
+function buildServerUrl(serverUrl, siteIdentifier) {
+    if (!siteIdentifier || siteIdentifier.trim() === '') return serverUrl.replace(/\/+$/, '');
+    return serverUrl.replace(/\/+$/, '') + '/' + siteIdentifier.replace(/^\/+/, '');
+}
+
+async function renderDashboard(data) {
+    try {
+        const accessToken = await getEmbedToken();
+        const serverUrl = buildServerUrl(data.serverUrl, data.siteIdentifier);
+        const dashboard = BoldBI.create({
+            serverUrl: serverUrl,
+            dashboardId: data.dashboardId,
+            embedContainerId: dashboardContainerId,
+            environment: data.environment,
+            embedToken: accessToken
+        });
+        dashboard.loadDashboard();
+    } catch (err) {
+        console.error('Error rendering dashboard:', err);
+        showError('Error rendering dashboard: ' + escapeHtml(err.message));
+    }
+}
+
+function showError(html) {
+    const errorEl = document.getElementById('error-message');
+    errorEl.innerHTML = html;
+    errorEl.style.display = 'block';
+}
+
+function escapeHtml(str) {
+    return str ? str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+}
 </script>
 </html>

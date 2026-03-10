@@ -1,26 +1,25 @@
 package com.example.demo;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.URI;
 
 @RestController
 @CrossOrigin
@@ -28,53 +27,81 @@ import com.google.gson.Gson;
 public class HomeController {
 
     EmbedProperties embedProperties;
+
+    private void ensureEmbedProperties() throws IOException {
+        if (this.embedProperties == null) {
+            ClassPathResource resource = new ClassPathResource("embedConfig.json");
+            byte[] jsonBytes = StreamUtils.copyToByteArray(resource.getInputStream());
+            String jsonContent = new String(jsonBytes, StandardCharsets.UTF_8);
+            Gson gson = new Gson();
+            this.embedProperties = gson.fromJson(jsonContent, EmbedProperties.class);
+        }
+    }
+
     @GetMapping("getEmbedConfig")
-    public Map<String, String> getEmbedConfig() throws IOException {
-        ClassPathResource resource = new ClassPathResource("embedConfig.json");
-        byte[] jsonBytes = StreamUtils.copyToByteArray(resource.getInputStream());
-        String jsonContent = new String(jsonBytes, StandardCharsets.UTF_8);
+    public ResponseEntity<?> getEmbedConfig() {
+        try {
+            ensureEmbedProperties();
+
+            // Create a Map with the desired properties
+            Map<String, String> result = new HashMap<>();
+            result.put("dashboardId", embedProperties.getDashboardId());
+            result.put("serverUrl", embedProperties.getServerUrl());
+            result.put("embedType", embedProperties.getEmbedType());
+            result.put("environment", embedProperties.getEnvironment());
+            result.put("siteIdentifier", embedProperties.getSiteIdentifier());
+            return ResponseEntity.ok(result);
+        } catch (IOException e) {
+            Map<String, String> err = new HashMap<>();
+            err.put("error", "embedConfig.json not found. Please obtain it from: https://help.boldbi.com/site-administration/embed-settings/#get-embed-configuration-file");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+        }
+    }
+
+    @PostMapping("TokenGeneration")
+    public String tokenGeneration() throws Exception {
+        if (this.embedProperties == null) {
+            getEmbedConfig();
+        }
+
+        Map<String, Object> embedDetails = new HashMap<>();
+        embedDetails.put("email", embedProperties.getUserEmail());
+        embedDetails.put("serverurl", embedProperties.getServerUrl());
+        embedDetails.put("siteidentifier", embedProperties.getSiteIdentifier());
+        embedDetails.put("embedsecret", embedProperties.getEmbedSecret());
+        Map<String, String> dashboard = new HashMap<>();
+        dashboard.put("id", embedProperties.getDashboardId());
+        embedDetails.put("dashboard", dashboard);
 
         Gson gson = new Gson();
-        this.embedProperties = gson.fromJson(jsonContent, EmbedProperties.class);
+        String jsonPayload = gson.toJson(embedDetails);
 
-        // Create a Map with the desired properties
-        Map<String, String> result = new HashMap<>();
-        result.put("dashboardId", embedProperties.getDashboardId());
-        result.put("serverUrl", embedProperties.getServerUrl());
-        result.put("embedType", embedProperties.getEmbedType());
-        result.put("environment", embedProperties.getEnvironment());
-        result.put("siteIdentifier", embedProperties.getSiteIdentifier());
-        return result;
-    }
-
-    @PostMapping("authorizationServer")
-    public String authorizationServer(@RequestBody EmbedClass embedQueryString) throws Exception {
-        String embedQuery = embedQueryString.getEmbedQuerString();
-        embedQuery += "&embed_user_email=" + embedProperties.getUserEmail();
-        String embedDetailsUrl = "/embed/authorize?" + embedQuery + "&embed_signature=" + GetSignatureUrl(embedQuery);
-        String baseAddressString = embedQueryString.getDashboardServerApiUrl();
-        String fullUrl = baseAddressString + embedDetailsUrl;
-        URL url = new URL(fullUrl);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Accept", "application/json");
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+        String requestUrl;
+        String siteId = embedProperties.getSiteIdentifier();
+        if (siteId == null || siteId.trim().isEmpty()) {
+            requestUrl = embedProperties.getServerUrl() + "/api/embed/authorize";
+        } else {
+            requestUrl = embedProperties.getServerUrl() + "/api/" + siteId + "/embed/authorize";
         }
-        in.close();
-        return response.toString();
-    }
 
-    public String GetSignatureUrl(String queryString) throws Exception {
-        if (queryString != null){
-        Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
-        SecretKeySpec secret_key = new SecretKeySpec(embedProperties.getEmbedSecret().getBytes("UTF-8"), "HmacSHA256");
-        sha256_HMAC.init(secret_key);
-            return new String(Base64.getEncoder().encode(sha256_HMAC.doFinal(queryString.getBytes("UTF-8"))));
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(requestUrl))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(jsonPayload))
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        String resultContent = response.body();
+
+        JsonObject obj = gson.fromJson(resultContent, JsonObject.class);
+        String token = null;
+        if (obj != null && obj.has("Data")) {
+            JsonObject data = obj.getAsJsonObject("Data");
+            if (data.has("access_token")) {
+                token = data.get("access_token").getAsString();
             }
-        return null;
+        }
+        return token;
     }
 }
